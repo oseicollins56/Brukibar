@@ -161,7 +161,7 @@
     }
     .gallery-main img {
       width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      transition: opacity .3s;
+      transition: opacity 0.25s ease;
       display: block;
     }
     .gallery-thumbs { display: flex; gap: 10px; }
@@ -660,7 +660,7 @@
   </div>
   <div style="max-width:700px; margin:0 auto;">
     <div class="video-card">
-      <video controls playsinline muted loop style="max-height:520px;">
+      <video id="mainVideo" controls playsinline muted loop style="max-height:520px; width:100%;">
         <source src="videos/video1.mov" type="video/mp4" />
         Your browser does not support video.
       </video>
@@ -854,10 +854,70 @@ let productQty = 1;
 
 // ── GALLERY ──
 function switchImg(thumb, src) {
-  document.getElementById('mainImg').src = src;
+  const mainImg = document.getElementById('mainImg');
+  mainImg.style.opacity = '0';
+  setTimeout(() => {
+    mainImg.src = src;
+    mainImg.style.opacity = '1';
+  }, 180);
+  document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  // Reset auto-rotate timer when user manually switches
+  resetGalleryRotation();
+}
+
+// ── GALLERY AUTO-ROTATION (every 20 seconds) ──
+let galleryTimer = null;
+let galleryIndex = 0;
+
+function startGalleryRotation() {
+  galleryTimer = setInterval(() => {
+    const thumbs = document.querySelectorAll('.gallery-thumbs img');
+    if (thumbs.length === 0) return;
+    galleryIndex = (galleryIndex + 1) % thumbs.length;
+    const nextThumb = thumbs[galleryIndex];
+    switchImgAuto(nextThumb, nextThumb.src);
+  }, 20000);
+}
+
+function resetGalleryRotation() {
+  clearInterval(galleryTimer);
+  const thumbs = document.querySelectorAll('.gallery-thumbs img');
+  thumbs.forEach((t, i) => { if (t.classList.contains('active')) galleryIndex = i; });
+  startGalleryRotation();
+}
+
+function switchImgAuto(thumb, src) {
+  const mainImg = document.getElementById('mainImg');
+  mainImg.style.opacity = '0';
+  setTimeout(() => {
+    mainImg.src = src;
+    mainImg.style.opacity = '1';
+  }, 180);
   document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
   thumb.classList.add('active');
 }
+
+// Start rotation on page load
+document.addEventListener('DOMContentLoaded', () => {
+  startGalleryRotation();
+});
+
+// ── VIDEO AUTO-PLAY ON SCROLL ──
+(function() {
+  const video = document.getElementById('mainVideo');
+  if (!video) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        video.play().catch(() => {}); // catch if browser blocks autoplay
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.45 }); // play when 45% of video is visible
+  observer.observe(video);
+})();
 
 // ── QTY ──
 function changeQtyProduct(delta) {

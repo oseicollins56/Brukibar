@@ -535,22 +535,8 @@
   </button>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-text">
-    <span class="hero-tag">🌿 Fresh Brukina · Healthy Sips</span>
-    <h1>Ghana's Finest<br/><em>Brukina Smoothie</em></h1>
-    <p>Crafted from the finest local grains and flavours — BRUKIBAR is pure, natural goodness you can taste in every sip. No preservatives. Just real ingredients.</p>
-    <div class="hero-price">GH₵ 25 <small>/ bottle</small></div>
-    <div class="hero-actions">
-      <button class="btn-dark" onclick="document.getElementById('product').scrollIntoView({behavior:'smooth'})">Order Now 🛒</button>
-      <button class="btn-outline" onclick="document.getElementById('occasions').scrollIntoView({behavior:'smooth'})">Bulk Orders</button>
-    </div>
-  </div>
-</section>
-
 <!-- ── PRODUCT ── -->
-<section id="product">
+<section id="product" style="scroll-margin-top: 70px; padding-top: 90px;">
   <div class="section-header">
     <h2>BRUKIBAR SMOOTHIE</h2>
     <p>One product. Done perfectly. 500ml Medium bottle.</p>
@@ -613,6 +599,20 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-tag">🌿 Fresh Brukina · Healthy Sips</span>
+    <h1>Ghana's Finest<br/><em>Brukina Smoothie</em></h1>
+    <p>Crafted from the finest local grains and flavours — BRUKIBAR is pure, natural goodness you can taste in every sip. No preservatives. Just real ingredients.</p>
+    <div class="hero-price">GH₵ 25 <small>/ bottle</small></div>
+    <div class="hero-actions">
+      <button class="btn-dark" onclick="document.getElementById('product').scrollIntoView({behavior:'smooth', block:'start'})">Order Now 🛒</button>
+      <button class="btn-outline" onclick="document.getElementById('occasions').scrollIntoView({behavior:'smooth'})">Bulk Orders</button>
+    </div>
   </div>
 </section>
 

@@ -813,13 +813,13 @@
       <div class="pay-step"><div class="ps-num">1</div><div class="ps-text">Dial <strong>*170#</strong> on your phone or open your MoMo app</div></div>
       <div class="pay-step"><div class="ps-num">2</div><div class="ps-text">Choose <strong>Transfer Money → MoMo User</strong></div></div>
       <div class="pay-step"><div class="ps-num">3</div><div class="ps-text">Enter <strong>0551456448</strong> and the exact amount shown above</div></div>
-      <div class="pay-step"><div class="ps-num">4</div><div class="ps-text">Use your name as reference, enter your PIN and confirm</div></div>
+      <div class="pay-step"><div class="ps-num">4</div><div class="ps-text">Enter your PIN and confirm — use your MoMo name as reference</div></div>
     </div>
 
     <!-- Customer details -->
     <div class="co-field">
-      <label>Your Full Name *</label>
-      <input type="text" id="coName" placeholder="e.g. Kofi Mensah" />
+      <label>MoMo Name *</label>
+      <input type="text" id="coName" placeholder="Name on your MoMo account" />
     </div>
     <div class="co-field">
       <label>Your Phone Number *</label>
@@ -1029,7 +1029,7 @@ function confirmPayment() {
   const name  = document.getElementById('coName').value.trim();
   const phone = document.getElementById('coPhone').value.trim();
 
-  if (!name)               { showToast('⚠️ Please enter your full name'); return; }
+  if (!name)               { showToast('⚠️ Please enter your MoMo account name'); return; }
   if (phone.length < 9)    { showToast('⚠️ Please enter a valid phone number'); return; }
 
   const orderId = 'BRK-' + Date.now().toString().slice(-7);
